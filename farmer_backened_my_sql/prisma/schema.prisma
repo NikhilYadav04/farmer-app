@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//* here its shows the count of responses,question,replies user made
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  phone     String
+  email     String     @unique
+  password  String
+  responses Response[]
+  questions Question[]
+  replies   Reply[]
+}
+
+model Response {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id   Int
+  image     String
+  response  String
+  createdAt DateTime @default(now())
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [user_id], references: [id])
+  user_id   Int
+  question  String   @unique
+  replies   Reply[]
+  createdAt DateTime @default(now())
+}
+
+model Reply {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [user_id], references: [id])
+  user_id   Int
+  question  Question @relation(fields: [q_id], references: [id])
+  q_id      Int
+  reply     String   @unique
+  createdAt DateTime @default(now())
+}
