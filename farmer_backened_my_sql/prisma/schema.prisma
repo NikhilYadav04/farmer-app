@@ -23,6 +23,8 @@ model User {
   responses Response[]
   questions Question[]
   replies   Reply[]
+  shop      Shop?
+  cart      Cart[]
 }
 
 model Response {
@@ -31,12 +33,13 @@ model Response {
   user_id   Int
   image     String
   response  String
+  disease   String?
   createdAt DateTime @default(now())
 }
 
 model Question {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [user_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id   Int
   question  String   @unique
   replies   Reply[]
@@ -45,10 +48,48 @@ model Question {
 
 model Reply {
   id        String   @id @default(uuid())
-  user      User     @relation(fields: [user_id], references: [id])
+  user      User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id   Int
-  question  Question @relation(fields: [q_id], references: [id])
+  question  Question @relation(fields: [q_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   q_id      Int
   reply     String   @unique
   createdAt DateTime @default(now())
 }
+
+model Shop {
+  id       Int       @id @default(autoincrement())
+  user     User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id  Int       @unique
+  owner    String
+  phone    String    @unique
+  address  String
+  locality String
+  city     String
+  state    String
+  products Product[]
+}
+
+model Product {
+  id          String  @id @default(uuid())
+  shop        Shop    @relation(fields: [s_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  s_id        Int
+  title       String  @unique
+  description String  @unique
+  image       String
+  price       Int
+  type        String
+  category    String
+  inStock     Boolean @default(true)
+  cart        Cart[]
+}
+
+model Cart {
+  id      Int     @id @default(autoincrement())
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id Int
+  product Product @relation(fields: [p_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  p_id    String
+  count   Int     @default(1)
+}
+
+

@@ -5,6 +5,9 @@ import router from "./route_config/index.js";
 import authRouter from "./routes/auth.js";
 import storeRouter from "./routes/store.js";
 import queryRouter from "./routes/query.js";
+import shopRouter from "./routes/shop.js";
+import cartRouter from "./routes/cart.js";
+import customerRouter from "./routes/customer.js";
 dotenv.config();
 
 //* log for checking server
@@ -24,6 +27,9 @@ app.use(router);
 router.use("/auth",authRouter);
 router.use("/store",storeRouter);
 router.use("/query",queryRouter);
+router.use("/shop",shopRouter);
+router.use("/cart",cartRouter);
+router.use("/customer",customerRouter);
 
 //* start the node js server
 const PORT = process.env.PORT || 2000;
