@@ -25,6 +25,7 @@ model User {
   replies   Reply[]
   shop      Shop?
   cart      Cart[]
+  Order_History Order_History[]
 }
 
 model Response {
@@ -70,17 +71,18 @@ model Shop {
 }
 
 model Product {
-  id          String  @id @default(uuid())
-  shop        Shop    @relation(fields: [s_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  s_id        Int
-  title       String  @unique
-  description String  @unique
-  image       String
-  price       Int
-  type        String
-  category    String
-  inStock     Boolean @default(true)
-  cart        Cart[]
+  id            String          @id @default(uuid())
+  shop          Shop            @relation(fields: [s_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  s_id          Int
+  title         String          @unique
+  description   String          @unique
+  image         String
+  price         Int
+  type          String
+  category      String
+  inStock       Boolean         @default(true)
+  cart          Cart[]
+  order_history Order_History[]
 }
 
 model Cart {
@@ -92,4 +94,13 @@ model Cart {
   count   Int     @default(1)
 }
 
-
+model Order_History {
+  id        Int      @id @default(autoincrement())
+  user User @relation(fields: [u_id],references: [id],onDelete: Cascade,onUpdate: Cascade)
+  u_id Int
+  product   Product  @relation(fields: [p_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  p_id      String
+  count     Int
+  price     Int
+  orderedAt DateTime @default(now())
+}

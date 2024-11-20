@@ -8,6 +8,7 @@ import queryRouter from "./routes/query.js";
 import shopRouter from "./routes/shop.js";
 import cartRouter from "./routes/cart.js";
 import customerRouter from "./routes/customer.js";
+import historyRouter from "./routes/orderHistory.js";
 dotenv.config();
 
 //* log for checking server
@@ -30,6 +31,7 @@ router.use("/query",queryRouter);
 router.use("/shop",shopRouter);
 router.use("/cart",cartRouter);
 router.use("/customer",customerRouter);
+router.use("/history",historyRouter);
 
 //* start the node js server
 const PORT = process.env.PORT || 2000;

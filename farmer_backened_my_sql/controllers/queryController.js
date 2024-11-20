@@ -51,12 +51,7 @@ export const delete_question = async (req, res) => {
 
 export const get_questions = async (req, res) => {
   try {
-    const { id } = req.user;
-
     const questions = await prisma.question.findMany({
-      where: {
-        user_id: id,
-      },
       include: {
         user: true,
       },

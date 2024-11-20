@@ -35,14 +35,14 @@ export const search_product_location = async (req, res) => {
                 OR: [
                   {
                     shop: {
-                      locality: {
+                      address: {
                         contains: locality,
                       },
                     },
                   },
                   {
                     shop: {
-                      address: {
+                      locality: {
                         contains: locality,
                       },
                     },
