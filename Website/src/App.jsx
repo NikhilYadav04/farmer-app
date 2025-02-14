@@ -3,7 +3,6 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-// import Navbar from "./components/Navbar";
 import Uploader from "./components/Uploader";
 import Register from "./components/Register";
 import Home from "./components/Home";
