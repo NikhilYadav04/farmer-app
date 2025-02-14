@@ -1,38 +1,51 @@
-import { ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ChevronRight } from 'lucide-react';
+import Button from '../ui/Button';
+import styled from 'styled-components';
+
+const Span = styled.span`
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  --tw-bg-opacity: 1;
+  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  @media (min-width: 1024px) {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+`;
+
 const HeroSection = () => {
-  const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center mt-[8rem] mb-[7rem]  lg:mt-[10rem] border-b border-neutral-800">
-      <h1 className="text-4xl sm:text-5xl lg:text-7xl text-center tracking-wide">
+    <div className="mb-[7rem] mt-[8rem] flex flex-col items-center border-b border-neutral-800 lg:mt-[10rem]">
+      <h1 className="text-center text-4xl tracking-wide sm:text-5xl lg:text-7xl">
         Protect Your Crops with AI-Powered
-        <span className="bg-gradient-to-r from-green-900 to-green-600 text-transparent bg-clip-text">
-          {" "}
+        <span className="bg-gradient-to-r from-green-900 to-green-600 bg-clip-text text-transparent">
+          {' '}
           Disease Detection
         </span>
       </h1>
-      <p className="mt-10 text-lg text-center text-neutral-500 max-w-4xl">
+      <p className="mt-10 max-w-4xl text-center text-lg text-neutral-500">
         Early detection, early action. Save your yields.
       </p>
-      <div className="flex justify-center gap-1 my-[5rem]">
-        <a
-        onClick={
-          navigate("/upload")
-        }
-          href="#"
-          className="bg-gradient-to-r flex items-center justify-between text-white gap-3 from-green-800 to-green-600 lg:py-4 py-3 lg:pl-10 pl-5 lg:pr-8 pr-3 mx-3 rounded-full transition ease-in-out hover:scale-110 duration-300"
-        >
+      <div className="my-[5rem] flex justify-center gap-1">
+        <Button type="rounded" to="/upload">
           Try it Now
           <ChevronRight />
-        </a>
-        <a
-          href="#"
-          className="bg-gradient-to-r flex items-center justify-between text-white from-green-900 to-green-600 py-[0.1rem] px-[0.1rem] rounded-full transition ease-in-out hover:scale-110 duration-300"
-        >
-          <span className="w-full h-full text-center bg-neutral-900 flex items-center justify-center rounded-full lg:py-5 py-2 lg:px-6 px-4">
-            Learn More
-          </span>
-        </a>
+        </Button>
+        <Button type="secondary">
+          <Span>Learn More</Span>
+        </Button>
       </div>
     </div>
   );
