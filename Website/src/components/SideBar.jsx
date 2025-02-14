@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Menu } from "lucide-react";
 import { Plus } from "lucide-react";
 import { MessageSquare } from "lucide-react";

@@ -2,24 +2,7 @@ import { Menu, X } from 'lucide-react';
 import logo from '../assets/logo.jpg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import NavList from '../ui/NavList';
-
-const StyledLi = styled.li`
-  border-radius: 0.375rem;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  transition-property:
-    color, background-color, border-color, text-decoration-color, fill, stroke,
-    opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-`;
 
 const Navbar = (props) => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
