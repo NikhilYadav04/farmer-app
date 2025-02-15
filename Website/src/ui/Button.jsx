@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Button({ children, type, to, onClick }) {
   const base =
-    'transition-all duration-300 ease-in-out hover:scale-110 rounded-full bg-gradient-to-r from-green-900 to-green-700';
+    'transition-all duration-500 ease-in-out hover:scale-105 rounded-full bg-gradient-to-r from-green-900 to-green-700';
 
   const styles = {
     primary:
