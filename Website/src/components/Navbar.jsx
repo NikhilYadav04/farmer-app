@@ -29,15 +29,15 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="top-4 w-full px-3 py-2">
+    <nav className="top-4 w-[90vw] mx-auto my-4">
       <div className="container relative mx-auto text-sm">
         <div className="flex items-center justify-between">
-          <div className="flex flex-shrink-0 items-center">
+          <div className="flex flex-shrink-0 pr-48 pl-5 py-3">
             <img className="h-12 w-12 bg-green-600" src={logo} alt="logo" />
           </div>
-          <ul className="bg-green-00/50 ml-[6.5rem] hidden space-x-1 rounded-full border border-neutral-700 px-2 py-2 text-base tracking-wide lg:flex">
+          <ul className="bg-green-00/50 hidden space-x-1 rounded-full border border-neutral-700 p-2 text-base tracking-wide lg:flex">
             <NavList to="/home" type="nav">
-              Home
+              Home 
             </NavList>
             <NavList to="/chatbot" type="nav">
               Chatbot

@@ -262,7 +262,7 @@ const FAQs = () => {
 
   return (
     <>
-      <div className="mx-auto flex flex-col h-full w-[90%] lg:w-[60%] justify-center items-center py-[0.1rem] px-[0.1rem] border rounded-xl bg-gradient-to-r from-green-300 to-green-400 faq-box">
+      <div className="flex flex-col h-full w-[70vw] justify-center items-center py-[0.1rem] px-[0.1rem] border rounded-xl bg-gradient-to-r from-green-300 to-green-400 faq-box">
         <div className="bg-black/90 rounded-xl w-[100%]">
           <h1 className="text-lg lg:text-2xl uppercase text-center tracking-wider bg-gradient-to-r from-green-700 via-green-500 to-green-200 text-transparent bg-clip-text my-10">
             Frequently Asked Questions

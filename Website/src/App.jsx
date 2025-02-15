@@ -11,7 +11,7 @@ import Signin from "./components/Signin";
 import FAQs from "./components/FAQs";
 import ChatApp from "./components/ChatApp";
 import History from "./components/History";
-import AppLayout from "./components/AppLayout";
+import AppLayout from "./ui/AppLayout";
 
 const router = createBrowserRouter([
   {

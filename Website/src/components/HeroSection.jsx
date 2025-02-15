@@ -27,7 +27,7 @@ const Span = styled.span`
 
 const HeroSection = () => {
   return (
-    <div className="mb-[7rem] mt-[8rem] flex flex-col items-center border-b border-neutral-800 lg:mt-[10rem]">
+    <div className="flex flex-col items-center border-neutral-800 w-[90vw]">
       <h1 className="text-center text-4xl tracking-wide sm:text-5xl lg:text-7xl">
         Protect Your Crops with AI-Powered
         <span className="bg-gradient-to-r from-green-900 to-green-600 bg-clip-text text-transparent">
@@ -35,7 +35,7 @@ const HeroSection = () => {
           Disease Detection
         </span>
       </h1>
-      <p className="mt-10 max-w-4xl text-center text-lg text-neutral-500">
+      <p className="mt-10 max-w-4xl text-center text-base text-neutral-500">
         Early detection, early action. Save your yields.
       </p>
       <div className="my-[5rem] flex justify-center gap-1">
