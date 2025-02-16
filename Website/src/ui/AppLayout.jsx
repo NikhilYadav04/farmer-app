@@ -7,8 +7,9 @@ const StyledMain = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10rem auto;
-  gap: 6.2rem;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 7.2rem;
 `;
 
 export default function AppLayout() {

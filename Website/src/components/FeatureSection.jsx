@@ -3,7 +3,7 @@ const FeatureSection = () => {
   console.log(localStorage.getItem('userdata'));
 
   return (
-    <div className="relative w-[90vw] border-b border-neutral-800">
+    <div className="relative w-[90vw] border-neutral-800">
       <div className="text-center">
         <span className="h-6 rounded-full bg-neutral-900 px-2 py-1 text-sm font-medium uppercase text-green-400">
           Feature

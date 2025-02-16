@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { MdCloudUpload, MdDelete } from "react-icons/md";
-import { AiFillFileImage } from "react-icons/ai";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import Dropdown from "./Dropdown";
-import "./Uploader.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from 'react';
+import { MdCloudUpload, MdDelete } from 'react-icons/md';
+import { AiFillFileImage } from 'react-icons/ai';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Dropdown from './Dropdown';
+import './Uploader.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Button from '../ui/Button';
 
 const Uploader = () => {
   const [image, setImage] = useState(null);
-  const [fileName, setFileName] = useState("Upload Image");
+  const [fileName, setFileName] = useState('Upload Image');
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false); // Loader state
   const [showResponse, setShowResponse] = useState(false); // To control when to show the response
@@ -18,26 +19,26 @@ const Uploader = () => {
 
   const upload_image = async () => {
     if (!selectedFile) {
-      console.error("No file selected");
-      toast.error("No file selected", { position: "bottom-center" });
+      console.error('No file selected');
+      toast.error('No file selected', { position: 'bottom-center' });
       return;
     }
 
-    const body = JSON.parse(localStorage.getItem("userdata"));
+    const body = JSON.parse(localStorage.getItem('userdata'));
     const formData = new FormData();
     // formData.append("name", body.name);
     // formData.append("phone", body.phone);
-    formData.append("image", selectedFile);
-    const token = JSON.parse(localStorage.getItem("token")).token;
+    formData.append('image', selectedFile);
+    const token = JSON.parse(localStorage.getItem('token')).token;
 
     try {
       const response = await axios.post(
-        "http://localhost:2000/store/upload",
+        'http://localhost:2000/store/upload',
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + token,
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + token,
           },
         }
       );
@@ -49,14 +50,14 @@ const Uploader = () => {
 
   const find_disease = async () => {
     if (!selectedFile) {
-      console.error("No file selected");
-      toast.error("No file selected", { position: "bottom-center" });
+      console.error('No file selected');
+      toast.error('No file selected', { position: 'bottom-center' });
       return;
     }
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
-    const storedData = JSON.parse(localStorage.getItem("itemdata"));
+    formData.append('file', selectedFile);
+    const storedData = JSON.parse(localStorage.getItem('itemdata'));
     const item = storedData.item;
 
     try {
@@ -65,7 +66,7 @@ const Uploader = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
@@ -73,7 +74,7 @@ const Uploader = () => {
       console.log(response.data.response);
 
       localStorage.setItem(
-        "plant",
+        'plant',
         JSON.stringify({
           disease: response.data.disease,
           cure: response.data.response,
@@ -86,8 +87,8 @@ const Uploader = () => {
 
   const upload_response = async (response_gemini) => {
     try {
-      const body = JSON.parse(localStorage.getItem("userdata"));
-      const token = JSON.parse(localStorage.getItem("token")).token;
+      const body = JSON.parse(localStorage.getItem('userdata'));
+      const token = JSON.parse(localStorage.getItem('token')).token;
       const response = await axios.post(
         `http://localhost:2000/store/store-response`,
         {
@@ -97,8 +98,8 @@ const Uploader = () => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
           },
         }
       );
@@ -112,9 +113,9 @@ const Uploader = () => {
     if (error.response) {
       console.error(error.response.data.message);
     } else if (error.request) {
-      console.error("No response received:", error.request);
+      console.error('No response received:', error.request);
     } else {
-      console.error("Error:", error.message);
+      console.error('Error:', error.message);
     }
   };
 
@@ -128,10 +129,10 @@ const Uploader = () => {
         await upload_image();
         await find_disease();
         await upload_response(
-          JSON.parse(localStorage.getItem("plant") || "{}").disease
+          JSON.parse(localStorage.getItem('plant') || '{}').disease
         );
       } else {
-        toast.error("No file selected", { position: "bottom-center" });
+        toast.error('No file selected', { position: 'bottom-center' });
       }
 
       setShowResponse(true);
@@ -140,40 +141,40 @@ const Uploader = () => {
     }
   };
 
-  let response = JSON.parse(localStorage.getItem("plant") || "{}").cure || "";
+  let response = JSON.parse(localStorage.getItem('plant') || '{}').cure || '';
 
-  let formattedResponse = response.replace(/\.\s+/g, ".\n");
-  let responseArray = formattedResponse.split("**\n");
-  let newResponse = "";
+  let formattedResponse = response.replace(/\.\s+/g, '.\n');
+  let responseArray = formattedResponse.split('**\n');
+  let newResponse = '';
 
   for (let i = 0; i < responseArray.length; i++) {
     if (i === 0 || i % 2 !== 1) {
       newResponse += responseArray[i];
     } else {
-      newResponse += "<b>" + responseArray[i] + "</b>";
+      newResponse += '<b>' + responseArray[i] + '</b>';
     }
   }
 
-  let newResponse2 = newResponse.split("*").join("<br>");
+  let newResponse2 = newResponse.split('*').join('<br>');
   let formattedResponseWithIndentation = newResponse2
-    .split("   ")
+    .split('   ')
     .map((word) => `<span style="margin-left: 20px;">${word}</span>`)
-    .join("");
+    .join('');
 
   return (
     <>
-      <div className="mx-5 my-[100px] flex flex-row flex-wrap justify-center lg:justify-between items-center rounded-3xl p-5 border border-transparent hover:border-green-500 gap-3">
-        <h1 className="text-4xl text-center font-bold w-1/2">
-          Upload Crop images and get{" "}
-          <span className="bg-gradient-to-r from-green-900 to-green-600 text-transparent bg-clip-text">
+      <div className="mx-5 flex flex-row flex-wrap items-center justify-center gap-3 rounded-3xl border border-transparent p-5 hover:border-green-500 lg:justify-between">
+        <h1 className="w-1/2 text-center text-4xl font-bold">
+          Upload Crop images and get{' '}
+          <span className="bg-gradient-to-r from-green-900 to-green-600 bg-clip-text text-transparent">
             disease prediction
           </span>
         </h1>
-        <main className="border border-transparent pt-10 px-10 rounded-3xl bg-black/10 flex flex-col gap-4">
+        <main className="flex flex-col gap-4 rounded-3xl border border-transparent bg-black/10 px-10 pt-10">
           <form
             action=""
-            onClick={() => document.querySelector(".input-field").click()}
-            className="flex flex-col items-center justify-center border border-dashed w-[500px] h-[300px] cursor-pointer rounded-3xl"
+            onClick={() => document.querySelector('.input-field').click()}
+            className="flex h-[300px] w-[500px] cursor-pointer flex-col items-center justify-center rounded-3xl border border-dashed"
           >
             <input
               type="file"
@@ -197,35 +198,33 @@ const Uploader = () => {
               </>
             )}
           </form>
-          <section className="my-3 mx-0 flex justify-between items-center py-1 px-1 rounded-3xl border">
+          <section className="mx-0 my-3 flex items-center justify-between rounded-3xl border px-1 py-1">
             <AiFillFileImage size={25} className="ml-3" />
-            <span className="flex flex-row justify-center items-center gap-1">
+            <span className="flex flex-row items-center justify-center gap-1">
               {fileName}
               <MdDelete
                 size={45}
-                className="p-3 rounded-full cursor-pointer"
+                className="cursor-pointer rounded-full p-3"
                 onClick={() => {
-                  setFileName("No selected file");
+                  setFileName('No selected file');
                   setImage(null);
                   setSelectedFile(null);
                 }}
               />
             </span>
           </section>
-          <button
-            type="submit"
-            onClick={handleSubmit}
-            className="bg-green-500 text-white py-3 px-10 rounded-lg mb-2 mx-auto"
-          >
-            Submit
-          </button>
           <Dropdown />
+          <div className="mx-auto">
+            <Button type="primary" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </div>
         </main>
       </div>
 
       {/* Loader */}
       {loading && (
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <div className="loader-wrapper">
             <span className="loader">
               <span className="loader-inner"></span>
@@ -237,15 +236,15 @@ const Uploader = () => {
 
       {/* Response */}
       {showResponse && (
-        <div className="flex-1 min-h-[80%] mb-5 mt-1 border border-neutral-600 rounded-3xl border-neutral-700 overflow-container bg-gradient-to-r py-[0.2rem] px-[0.2rem] w-[60%] mx-auto">
-          <div className="flex-1 min-h-[100%] relative bg-neutral-900 rounded-3xl overflow-container">
-            <div className="flex items-center justify-between text-base py-1 px-1"></div>
-            <div className="max-w-5xl mx-auto">
-              <div className="py-0 px-[5%] max-h-[70vh] overflow-y-auto result">
-                <div className="my-10 mx-0 flex flex-col items-start gap-5 text-neutral-400">
+        <div className="overflow-container mx-auto mb-5 mt-1 min-h-[80%] w-[60%] flex-1 rounded-3xl border border-neutral-600 bg-gradient-to-r px-[0.2rem] py-[0.2rem]">
+          <div className="overflow-container relative min-h-[100%] flex-1 rounded-3xl bg-neutral-900">
+            <div className="flex items-center justify-between px-1 py-1 text-base"></div>
+            <div className="mx-auto max-w-5xl">
+              <div className="result max-h-[70vh] overflow-y-auto px-[5%] py-0">
+                <div className="mx-0 my-10 flex flex-col items-start gap-5 text-neutral-400">
                   <h1>
-                    Predicted Disease:{" "}
-                    {JSON.parse(localStorage.getItem("plant") || "{}").disease}
+                    Predicted Disease:{' '}
+                    {JSON.parse(localStorage.getItem('plant') || '{}').disease}
                   </h1>
                   <p
                     dangerouslySetInnerHTML={{

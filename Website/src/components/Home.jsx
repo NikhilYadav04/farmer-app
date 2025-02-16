@@ -6,14 +6,12 @@ import Footer from './Footer';
 
 const Home = () => {
   return (
-    <>
+    <div className="mt-[10rem] flex flex-col items-center justify-between gap-24">
       <HeroSection />
       <FeatureSection />
-      {/* <div className="flex flex-col items-center justify-center border-b border-neutral-800"> */}
-        <FAQs />
-      {/* </div> */}
+      <FAQs />
       <Footer />
-    </>
+    </div>
   );
 };
 

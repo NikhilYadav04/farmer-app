@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
-import { Menu } from "lucide-react";
-import { Plus } from "lucide-react";
-import { MessageSquare } from "lucide-react";
-import { CircleHelp } from "lucide-react";
-import { History } from "lucide-react";
-import { Settings } from "lucide-react";
-import { Context } from "./Context";
-import "./SideBar.css";
+import React, { useContext } from 'react';
+import { Menu } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
+import { CircleHelp } from 'lucide-react';
+import { History } from 'lucide-react';
+import { Settings } from 'lucide-react';
+import { Context } from './Context';
+import './SideBar.css';
+import Button from '../ui/Button';
 const SideBar = () => {
   const [extended, setExtended] = React.useState(false);
   const { onSent, prevPrompts, setRecentPrompt, newChat } = useContext(Context);
@@ -18,32 +19,29 @@ const SideBar = () => {
 
   return (
     <div
-      className={`navDrawer min-h-screen max-w-5xl inline-flex flex-col justify-between py-6 px-3 transition-all ease-out duration-500 translate-x-0 ${
-        extended ? "w-80" : null
+      className={`navDrawer inline-flex h-full max-w-5xl translate-x-0 flex-col items-center justify-between px-3 py-6 transition-all duration-500 ease-out ${
+        extended ? 'w-50' : null
       } max-md:hidden`}
     >
       <div>
         <Menu
           onClick={() => setExtended(!extended)}
-          className="w-6 block ml-3 cursor-pointer"
+          className="ml-3 flex flex-col justify-center items-center w-6 cursor-pointer "
         />
-        <div
-          onClick={() => newChat()}
-          className="mt-12 inline-flex items-center gap-3 py-3 px-3 bg-gradient-to-r from-green-800/50 to-green-700/80 rounded-full text-base cursor-pointer transition ease-in-out hover:scale-110 duration-300"
-        >
+        <Button type="sidebar" onClick={newChat}>
           <Plus className="w-6" />
           {extended ? <p>New Chat</p> : null}
-        </div>
+        </Button>
         {extended ? (
-          <div className="flex flex-col recent">
-            <p className="mt-8 mb-5">Recent</p>
+          <div className="recent flex flex-col items-start justify-center">
+            <p className="mt-6 mb-3 ml-3">Recent</p>
             {prevPrompts.map((item, index) => {
               return (
                 <div
                   onClick={() => loadPrompt(item)}
-                  className={`flex items-start gap-3 p-3 rounded-full cursor-pointer transition-colors hover:bg-green-400/5 hover:text-green-400`}
+                  className={`flex cursor-pointer items-start gap-3 rounded-full p-3 w-40 transition-colors hover:bg-green-400/5 hover:text-green-400`}
                 >
-                  <MessageSquare className="w-6" />
+                  <MessageSquare className="w-8" />
                   <p>{item.slice(0, 20)} ...</p>
                 </div>
               );
@@ -51,16 +49,16 @@ const SideBar = () => {
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col">
-        <div className="flex items-start gap-3 p-3 rounded-full cursor-pointer hover:bg-neutral-600/30 ">
+      <div className="flex flex-col items-start w-full justify-center">
+        <div className="flex cursor-pointer items-start gap-3 rounded-full p-3 hover:bg-neutral-600/30">
           <CircleHelp className="w-6" />
           {extended ? <p>Help</p> : null}
         </div>
-        <div className="flex items-start gap-3 p-3 rounded-full cursor-pointer hover:bg-neutral-600/30 ">
+        <div className="flex cursor-pointer items-start gap-3 rounded-full p-3 hover:bg-neutral-600/30">
           <History className="w-6" />
           {extended ? <p>History</p> : null}
         </div>
-        <div className="flex items-start gap-3 p-3 rounded-full cursor-pointer hover:bg-neutral-600/30">
+        <div className="flex cursor-pointer items-start gap-3 rounded-full p-3 hover:bg-neutral-600/30">
           <Settings className="w-6" />
           {extended ? <p>Settings</p> : null}
         </div>
