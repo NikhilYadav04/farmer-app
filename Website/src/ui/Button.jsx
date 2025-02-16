@@ -15,6 +15,10 @@ export default function Button({ children, type, to, onClick }) {
     rounded:
       base +
       ' mx-3 flex items-center justify-between gap-3 py-3 pl-5 pr-3 text-white lg:py-4 lg:pl-10 lg:pr-8',
+
+    sidebar:
+      base +
+      ' mt-6 mb-3 flex items-center justify-between gap-2 py-4 px-4 text-white',
   };
 
   // px-6 py-3 text-base text-[#fff] hover:bg-green-500/10
