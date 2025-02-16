@@ -8,11 +8,24 @@ import './Uploader.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from '../ui/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setImage,
+  setFileName,
+  setSelectedFile,
+  resetUpload,
+} from '../hooks/uploaderSlice';
 
 const Uploader = () => {
-  const [image, setImage] = useState(null);
-  const [fileName, setFileName] = useState('Upload Image');
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [image, setImage] = useState(null);
+  // const [fileName, setFileName] = useState('Upload Image');
+  // const [selectedFile, setSelectedFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const image = useSelector((state) => state.uploader.image);
+  const fileName = useSelector((state) => state.uploader.fileName);
+  const selectedFile = useSelector((state) => state.uploader.selectedFile);
+
   const [loading, setLoading] = useState(false); // Loader state
   const [showResponse, setShowResponse] = useState(false); // To control when to show the response
   const navigate = useNavigate();
@@ -181,11 +194,12 @@ const Uploader = () => {
               accept="image/*"
               className="input-field"
               hidden
-              onChange={({ target: { files } }) => {
-                if (files[0]) {
-                  setFileName(files[0].name);
-                  setImage(URL.createObjectURL(files[0]));
-                  setSelectedFile(files[0]);
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  dispatch(setFileName(file.name));
+                  dispatch(setImage(URL.createObjectURL(file)));
+                  dispatch(setSelectedFile(file));
                 }
               }}
             />
