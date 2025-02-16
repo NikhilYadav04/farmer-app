@@ -8,6 +8,7 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
+
 import "./FAQs.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
