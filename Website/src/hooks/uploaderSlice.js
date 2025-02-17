@@ -6,10 +6,10 @@ const initialState = {
   selectedFile: null,
 };
 
-const uploaderSlice = createSlice({
+export const uploaderSlice = createSlice({
   name: 'uploader',
   initialState,
-  renders: {
+  reducers: {
     setImage: (state, action) => {
       state.image = action.payload;
     },
