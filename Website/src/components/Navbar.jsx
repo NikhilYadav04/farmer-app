@@ -1,7 +1,8 @@
-import { Menu, X } from "lucide-react";
-import logo from "../assets/logo.jpg";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Menu, X } from 'lucide-react';
+import logo from '../assets/logo.jpg';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NavList from '../ui/NavList';
 
 const Navbar = (props) => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -12,173 +13,107 @@ const Navbar = (props) => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
-  if(localStorage.getItem("userdata") && !isLoggedIn) {
+  if (localStorage.getItem('userdata') && !isLoggedIn) {
     setIsLoggedIn(true);
   }
 
   const handleLogin = () => {
-    if(localStorage.getItem("userdata")) {
+    if (localStorage.getItem('userdata')) {
       setIsLoggedIn(true);
     }
     //setIsLoggedIn(true);
   };
   const handleLogout = () => {
-    localStorage.removeItem("userdata")
+    localStorage.removeItem('userdata');
     setIsLoggedIn(false);
   };
 
   return (
-    <nav className="top-4 px-3 py-2 w-full">
-      <div className="container mx-auto relative text-sm">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center flex-shrink-0">
+    <nav className="top-4 w-[90vw] mx-auto my-4">
+      <div className="container relative mx-auto text-sm">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-shrink-0 pr-48 pl-5 py-3">
             <img className="h-12 w-12 bg-green-600" src={logo} alt="logo" />
           </div>
-          <ul className="hidden lg:flex px-2 py-2 ml-[6.5rem] space-x-1 bg-green-00/50 border border-neutral-700 rounded-full tracking-wide text-base">
-            <li
-              onClick={() => {
-                navigate("/home");
-              }}
-              className="hover:bg-green-500/10 hover:text-green-400 rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
-              Home
-            </li>
-            <li onClick={() => {
-                navigate("/chatbot");
-              }} className="hover:bg-green-500/10 hover:text-green-400 rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300">
-             Chatbot
-            </li>
-            <li
-             onClick={() => {
-              navigate("/history");
-            }}
-              className="hover:bg-green-500/10 hover:text-green-400 rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+          <ul className="bg-green-00/50 hidden space-x-1 rounded-full border border-neutral-700 p-2 text-base tracking-wide lg:flex">
+            <NavList to="/home" type="nav">
+              Home 
+            </NavList>
+            <NavList to="/chatbot" type="nav">
+              Chatbot
+            </NavList>
+            <NavList to="/history" type="nav">
               History
-            </li>
-            <li
-              onClick={() => {
-                navigate("/about");
-              }}
-              className="hover:bg-green-500/10 hover:text-green-400 rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+            </NavList>
+            <NavList to="/about" type="nav">
               About Us
-            </li>
-            <li
-              onClick={() => {
-                navigate("/FAQ");
-              }}
-              className="hover:bg-green-500/10 hover:text-green-400 rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+            </NavList>
+            <NavList to="/FAQ" type="nav">
               FAQs
-            </li>
+            </NavList>
           </ul>
-          <ul className="hidden lg:flex justify-center space-x-2 items-center">
+          <ul className="hidden items-center justify-center space-x-2 lg:flex">
             {isLoggedIn ? (
               <>
-                <li
-                  onClick={handleLogout}
-                  className="py-3 px-6 hover:bg-green-500/10 hover:text-green-400 rounded-md text-base transition ease-in-out hover:scale-110 duration-300"
-                >
+                <NavList onClick={handleLogout} type="secondary">
                   Logout
-                </li>
+                </NavList>
               </>
             ) : (
               <>
-                <li
-                  onClick={() => {
-                    navigate("/register");
-                    handleLogin();
-                  }}
-                  className="py-3 px-6 hover:bg-green-500/10 hover:text-green-400 rounded-md text-base transition ease-in-out hover:scale-110 duration-300"
-                >
+                <NavList onClick={handleLogin} type="secondary" to="/register">
                   Register
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/signin");
-                    handleLogin();
-                  }}
-                  className="py-3 px-6 hover:bg-green-500/10 rounded-md text-[#fff] bg-gradient-to-r from-green-900 to-green-700 text-base transition ease-in-out hover:scale-110 duration-300"
-                >
+                </NavList>
+                <NavList onClick={handleLogin} type="primary" to="/signin">
                   Sign In
-                </li>
+                </NavList>
               </>
             )}
           </ul>
-          <div className="lg:hidden md:flex flex-col justify-end">
+          <div className="flex-col justify-end md:flex lg:hidden">
             <button onClick={toggleNavbar}>
               {mobileDrawerOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
         {mobileDrawerOpen && (
-          <div className="fixed bg-neutral-900 right-0 z-20 space-y-10 w-full p-12 flex flex-col justify-center items-center lg:hidden text-base">
-            <a
-              href="/home"
-              className="hover:bg-green-500/10 hover:text-green-400 text-center rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+          <ul className="fixed right-0 z-20 flex w-full flex-col items-center justify-center space-y-10 bg-neutral-900 p-12 text-base lg:hidden">
+            <NavList to="/home" type="nav">
               Home
-            </a>
-            <a
-            onClick={() => {
-              navigate("/chatbot");
-            }}
-              href="/featureSection"
-              className="hover:bg-green-500/10 hover:text-green-400 text-center rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+            </NavList>
+            <NavList to="/chatbot" type="nav">
               Chatbot
-            </a>
-            <a
-            onClick={() => {
-              navigate("/history");
-            }}
-             className="hover:bg-green-500/10 hover:text-green-400 text-center rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300">
+            </NavList>
+            <NavList to="/history" type="nav">
               History
-            </a>
-            <a
-              onClick={() => {
-                props.handleClick("aboutus");
-              }}
-              className="hover:bg-green-500/10 hover:text-green-400 text-center rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300"
-            >
+            </NavList>
+            <NavList to="/about" type="nav">
               About Us
-            </a>
-            <a className="hover:bg-green-500/10 hover:text-green-400 text-center rounded-full py-3 px-7 transition ease-in-out hover:scale-110 duration-300">
+            </NavList>
+            <NavList to="/FAQ" type="nav">
               FAQs
-            </a>
+            </NavList>
             <div className="flex space-x-6">
               {isLoggedIn ? (
-                <div
-                  onClick={handleLogout}
-                  className="py-3 px-6 hover:bg-green-500/10 hover:text-green-400 rounded-md text-base transition ease-in-out hover:scale-110 duration-300"
-                >
+                <NavList onClick={handleLogout} type="secondary">
                   Logout
-                </div>
+                </NavList>
               ) : (
                 <>
-                  <div
-                    onClick={() => {
-                      navigate("/register");
-                      handleLogin();
-                    }}
-                    className="py-3 px-6 hover:bg-green-500/10 hover:text-green-400 rounded-md text-base transition ease-in-out hover:scale-110 duration-300"
+                  <NavList
+                    onClick={handleLogin}
+                    type="secondary"
+                    to="/register"
                   >
                     Register
-                  </div>
-                  <div
-                    onClick={() => {
-                      navigate("/signin");
-                      handleLogin();
-                    }}
-                    className="py-3 px-6 hover:bg-green-500/10 rounded-md text-[#fff] bg-gradient-to-r from-green-900 to-green-700 text-base transition ease-in-out hover:scale-110 duration-300"
-                  >
+                  </NavList>
+                  <NavList onClick={handleLogin} type="primary" to="/signin">
                     Sign In
-                  </div>
+                  </NavList>
                 </>
               )}
             </div>
-          </div>
+          </ul>
         )}
       </div>
     </nav>

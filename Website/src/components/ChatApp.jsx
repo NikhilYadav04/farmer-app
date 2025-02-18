@@ -6,7 +6,7 @@ import ContextProvider from "./Context";
 const ChatApp = () => {
   return (
     <ContextProvider>
-      <div className="flex">
+      <div className="w-full flex h-[85vh] justify-center">
         <SideBar />
         <Main />
       </div>

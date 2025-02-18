@@ -1,31 +1,62 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Uploader from "./components/Uploader.jsx";
-import Register from "./components/Register.jsx";
-import Signin from "./components/SignIn.jsx";
-import Home from "./components/Home.jsx";
-import AboutUs from "./components/AboutUs.jsx";
-import FAQs from "./components/FAQs.jsx";
-import ChatApp from "./components/ChatApp.jsx";
-import History from "./components/History.jsx";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import Uploader from "./components/Uploader";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import AboutUs from "./components/AboutUs";
+import Signin from "./components/Signin";
+import FAQs from "./components/FAQs";
+import ChatApp from "./components/ChatApp";
+import History from "./components/History";
+import AppLayout from "./ui/AppLayout";
 
-const App = () => {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/upload" element={<Uploader />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/FAQ" element={<FAQs />} />
-        <Route path="/chatbot" element={<ChatApp />} />
-        <Route path="/history" element={<History />} />
-      </Routes>
-    </Router>
-  );
-};
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate replace to="home" />,
+      },
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "about",
+        element: <AboutUs />,
+      },
+      {
+        path: "upload",
+        element: <Uploader />,
+      },
+      {
+        path: "FAQ",
+        element: <FAQs />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "signin",
+        element: <Signin />,
+      },
+      {
+        path: "chatbot",
+        element: <ChatApp />,
+      },
+      {
+        path: "history",
+        element: <History />,
+      },
+    ],
+  },
+]);
 
-export default App;
+export default function App() {
+  return <RouterProvider router={router} />;
+}
