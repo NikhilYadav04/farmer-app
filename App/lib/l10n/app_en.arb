@@ -100,6 +100,9 @@
   "diseaseText":"Disease",
   "@diseaseText": {},
 
+  "conservationText":"Conservation Status",
+  "@conservationText": {},
+
   "checkText":"Check Your Plant",
   "@checkText": {},
   "checkText1":"Capture photos, identify plant species, and get detailed information instantly.",

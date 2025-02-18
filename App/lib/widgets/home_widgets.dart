@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:ai_plant_detecion/controllers/main/getX_Diagnose.dart';
 import 'package:ai_plant_detecion/global/colors.dart';
 import 'package:ai_plant_detecion/screens/main/history/history_detail_screen_mobile.dart';
+import 'package:ai_plant_detecion/styling/appTheme.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,13 +70,17 @@ Widget diseaseTextWidget(BuildContext context) {
             style: TextStyle(fontSize: 4 * SizeConfig.heightMultiplier)
                 .copyWith(color: Colors.white, fontFamily: "CoreSansBold"),
           ),
-           SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Text(
             ":",
             style: TextStyle(fontSize: 4 * SizeConfig.heightMultiplier)
                 .copyWith(color: Colors.white, fontFamily: "CoreSansBold"),
           ),
-          SizedBox(width: 15,),
+          SizedBox(
+            width: 15,
+          ),
           Text(
             "Tomato",
             style: TextStyle(fontSize: 4 * SizeConfig.heightMultiplier)
@@ -87,7 +94,7 @@ Widget diseaseTextWidget(BuildContext context) {
   );
 }
 
-Widget remediesTextWIdget(BuildContext context) {
+Widget remediesTextWIdget(BuildContext context, String text) {
   return Row(
     children: [
       Icon(
@@ -101,30 +108,13 @@ Widget remediesTextWIdget(BuildContext context) {
       Padding(
         padding: EdgeInsets.only(top: 0.52 * SizeConfig.heightMultiplier),
         child: Text(
-          AppLocalizations.of(context)!.remedyText,
+          text,
           style: TextStyle(
               color: screenBackgroundColorGreen,
               fontFamily: "CoreSansMed",
-              fontSize: 3.47 * SizeConfig.heightMultiplier),
+              fontSize: 3 * SizeConfig.heightMultiplier),
         ),
       )
-    ],
-  );
-}
-
-Widget remedies(String remedies) {
-  return Row(
-    children: [
-      Text(
-        maxLines: 11,
-        overflow: TextOverflow.ellipsis,
-        remedies,
-        style: TextStyle(
-            color: Color.fromARGB(255, 230, 225, 225),
-            fontFamily: "CoreSansLight",
-            fontWeight: FontWeight.bold,
-            fontSize: 2.00 * SizeConfig.heightMultiplier),
-      ),
     ],
   );
 }
@@ -172,7 +162,7 @@ Widget checkWidget(BuildContext context, initialize controller) {
                 button(
                     controller.change,
                     AppLocalizations.of(context)!.bottomBarDiagnose,
-                    context,
+                    
                     5.26 * SizeConfig.heightMultiplier)
               ],
             )),
@@ -181,20 +171,19 @@ Widget checkWidget(BuildContext context, initialize controller) {
   );
 }
 
-Widget getResponseWidget(BuildContext context, initialize controller) {
+Widget getResponseWidget(BuildContext context, initialize controller,
+    File? _imagefile, void Function() onTap1) {
   return Column(
     children: [
       Flexible(
           flex: 3,
-          child: ClipRRect(
-            borderRadius:
-                BorderRadius.circular(0.52 * SizeConfig.heightMultiplier),
-            child: Image.asset(
-              "assets/plants/tom.jpg",
-              // scale: responsiveContainerSize(
-              //     5.5, width, height),
-            ),
-          )),
+          child: _imagefile == null
+              ? noImageWidget()
+              : ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(0.52 * SizeConfig.heightMultiplier),
+                  child: Image.file(_imagefile),
+                )),
       Flexible(
           flex: 1,
           child: ClipRRect(
@@ -208,10 +197,10 @@ Widget getResponseWidget(BuildContext context, initialize controller) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      button(() {}, AppLocalizations.of(context)!.uploadText,
-                          context, 5.5 * SizeConfig.heightMultiplier),
+                      button(onTap1, AppLocalizations.of(context)!.uploadText,
+                          5.5 * SizeConfig.heightMultiplier),
                       button(() {}, AppLocalizations.of(context)!.submitText,
-                          context, 5.5 * SizeConfig.heightMultiplier)
+                          5.5 * SizeConfig.heightMultiplier)
                     ],
                   )
                 ],
@@ -221,7 +210,7 @@ Widget getResponseWidget(BuildContext context, initialize controller) {
 }
 
 Widget button(
-    void Function() onTap, String text, BuildContext context, double height) {
+    void Function() onTap, String text, double height) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -237,6 +226,49 @@ Widget button(
                 color: Colors.white,
                 fontFamily: "CoreSansMed",
                 fontSize: 2.4 * SizeConfig.heightMultiplier)),
+      ),
+    ),
+  );
+}
+
+Widget noImageWidget() {
+  return Padding(
+    padding: EdgeInsets.only(top: 2),
+    child: Container(
+      height: 300,
+      width: 360,
+      decoration: BoxDecoration(
+          color: AppTheme.screenBackgroundColorIndigo,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+                color: AppTheme.screenBackgroundColorGreen,
+                blurRadius: 5,
+                spreadRadius: 2)
+          ],
+          border: Border.all(color: AppTheme.screenBackgroundColorGreen)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/plants/upload.png",
+            height: 80,
+            width: 90,
+          ),
+          SizedBox(
+            height: 2.2 * SizeConfig.heightMultiplier,
+          ),
+          Center(
+            child: Text(
+              "Upload image Of Plant",
+              style: TextStyle(
+                  fontFamily: "CoreSansMed",
+                  color: AppTheme.screenBackgroundColorGreen,
+                  fontSize: 3 * SizeConfig.heightMultiplier),
+            ),
+          ),
+        ],
       ),
     ),
   );

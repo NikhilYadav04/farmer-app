@@ -1,11 +1,16 @@
+import 'package:ai_plant_detecion/controllers/main/getX_history.dart';
 import 'package:ai_plant_detecion/global/colors.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
+import 'package:ai_plant_detecion/widgets/history_widgets.dart';
 import 'package:ai_plant_detecion/widgets/home_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class HistoryDetailScreenMobile extends StatelessWidget {
-  const HistoryDetailScreenMobile({super.key});
+  HistoryDetailScreenMobile({super.key});
+  final HistoryController historyController = Get.put(HistoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +18,39 @@ class HistoryDetailScreenMobile extends StatelessWidget {
       child: Scaffold(
         backgroundColor: screenBackgroundColorIndigo,
         body: SingleChildScrollView(
-          child: Container(
+          child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: 1.26 * SizeConfig.heightMultiplier,
                 horizontal: 2.67 * SizeConfig.widthMultiplier),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () => Get.back(),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                    size: 4.21 * SizeConfig.heightMultiplier,
-                  ),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 4.21 * SizeConfig.heightMultiplier,
+                        ),
+                      ),
+                      Icon(
+                        Icons.bookmark_add_outlined,
+                        color: Colors.white,
+                        size: 4.5 * SizeConfig.heightMultiplier,
+                      ),
+                    ]),
+
+                //* title text
+                titleText(historyController),
                 SizedBox(
-                  height: 2.10 * SizeConfig.heightMultiplier,
+                  height: 20,
                 ),
+
                 //*plant image
                 ClipRRect(
                   borderRadius:
@@ -40,6 +60,7 @@ class HistoryDetailScreenMobile extends StatelessWidget {
                 SizedBox(
                   height: 3.16022332244812 * SizeConfig.heightMultiplier,
                 ),
+
                 //*plant and disease text
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -59,21 +80,56 @@ class HistoryDetailScreenMobile extends StatelessWidget {
                 SizedBox(
                   height: 1.58 * SizeConfig.heightMultiplier,
                 ),
+
                 //*medicinal uses
                 Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 1.11 * SizeConfig.widthMultiplier),
-                    child: remediesTextWIdget(context)),
+                    child: remediesTextWIdget(
+                        context, AppLocalizations.of(context)!.remedyText)),
+                SizedBox(
+                  height: 1.5 * SizeConfig.heightMultiplier,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 2 * SizeConfig.widthMultiplier,
+                    ),
+                    child: medicineList(historyController)),
+
+                //* conservation status
+                SizedBox(
+                  height: 2.5 * SizeConfig.heightMultiplier,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 1.11 * SizeConfig.widthMultiplier),
+                    child: Divider(
+                      color: Colors.white,
+                      height: 5,
+                    )),
                 SizedBox(
                   height: 1.58 * SizeConfig.heightMultiplier,
                 ),
-                //*response given by ai
                 Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 1.11 * SizeConfig.widthMultiplier,
-                    ),
-                    child: remedies(
-                        "To manage Tomato Leaf Curl Virus, start\nby regularly removing any affect leaves\nto prevent the disease from spreading\nfurther. Control whiteflies, which are the\nmain carriers of this virus, by applying\ninsecticidal soap or neem oil. Practice\ncrop rotation by avoiding planting\ntomatoes in the same location year after\nyear to reduce the chance of the virus\npersisting in the soil.Ensure that the plants\nare spaced."))
+                        horizontal: 1.11 * SizeConfig.widthMultiplier),
+                    child: remediesTextWIdget(context,
+                        AppLocalizations.of(context)!.conservationText)),
+                SizedBox(
+                  height: 1 * SizeConfig.heightMultiplier,
+                ),
+                medicineDescription(
+                    "Giloy possesses digestive properties that help improve digestion, reduce hyperacidity, and prevent constipation. It can also help alleviate bloating and other digestive discomforts."),
+                SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 1.11 * SizeConfig.widthMultiplier),
+                    child: Divider(
+                      color: Colors.white,
+                      height: 5,
+                    )),
               ],
             ),
           ),

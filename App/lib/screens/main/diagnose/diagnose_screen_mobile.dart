@@ -1,12 +1,32 @@
+import 'dart:io';
+
 import 'package:ai_plant_detecion/controllers/main/getX_Diagnose.dart';
 import 'package:ai_plant_detecion/global/colors.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
 import 'package:ai_plant_detecion/widgets/home_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
-class DiagnoseScreenMobile extends StatelessWidget {
+class DiagnoseScreenMobile extends StatefulWidget {
+  @override
+  State<DiagnoseScreenMobile> createState() => _DiagnoseScreenMobileState();
+}
+
+class _DiagnoseScreenMobileState extends State<DiagnoseScreenMobile> {
   final initialize controller = Get.put(initialize());
+
+  File? _imagefile;
+
+  void _addImage() async {
+    final XFile? _pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    setState(() {
+      if (_pickedFile != null) {
+        _imagefile = File(_pickedFile.path);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +71,11 @@ class DiagnoseScreenMobile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(
                               1.05 * SizeConfig.heightMultiplier),
                         ),
-                        child: getResponseWidget(context, controller)),
+                        child: GestureDetector(
+                            child: getResponseWidget(
+                                context, controller, _imagefile, () {
+                          _addImage();
+                        }))),
                   );
                 },
               );

@@ -104,5 +104,7 @@
   "uploadText": "अपलोड करा",
   "@uploadText": {},
   "submitText": "सामायिक करा",
-  "@submitText": {}
+  "@submitText": {},
+  "conservationText": "संवर्धन स्थिती",
+  "@conservationText": {}
 }

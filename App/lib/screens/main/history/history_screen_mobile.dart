@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryScreenMobile extends StatelessWidget {
   final HistoryController controller = Get.put(HistoryController());
+  
 
   @override
   Widget build(BuildContext context) {
