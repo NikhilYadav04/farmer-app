@@ -1,6 +1,7 @@
 import 'package:ai_plant_detecion/global/colors.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Widget bottomCard(String title, String desc) {
   return Column(
@@ -43,7 +44,7 @@ Widget bottomCard(String title, String desc) {
   );
 }
 
-Widget bottomButtons(void Function() but1, void Function() but2) {
+Widget bottomButtons(BuildContext context,void Function() but1, void Function() but2) {
   return Container(
     width: 47.25 * SizeConfig.heightMultiplier,
     child: Column(
@@ -69,7 +70,7 @@ Widget bottomButtons(void Function() but1, void Function() but2) {
                 width: 43.64 * SizeConfig.widthMultiplier,
                 child: Center(
                   child: Text(
-                    "Skip",
+                    AppLocalizations.of(context)!.buttonSkip,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: "CoreSansLight",
@@ -90,7 +91,7 @@ Widget bottomButtons(void Function() but1, void Function() but2) {
                 width: 43.64 * SizeConfig.widthMultiplier,
                 child: Center(
                   child: Text(
-                    "Continue",
+                    AppLocalizations.of(context)!.buttonContinue,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: "CoreSansLight",

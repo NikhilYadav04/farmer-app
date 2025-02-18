@@ -1,5 +1,6 @@
 import 'package:ai_plant_detecion/controllers/main/getX_appBar.dart';
 import 'package:ai_plant_detecion/global/colors.dart';
+import 'package:ai_plant_detecion/styling/appTheme.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,11 +44,10 @@ AppBar appBar(
 BottomNavigationBar bottomBar(
     int currentPage, appBarController controller, BuildContext context) {
   return BottomNavigationBar(
-    type: BottomNavigationBarType.shifting,
-    selectedIconTheme: icontheme()
-        .copyWith(color: screenBackgroundColorGreen),
-    unselectedIconTheme:
-        icontheme().copyWith(color: Colors.white),
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: AppTheme.screenBackgroundColorIndigo,
+    selectedIconTheme: icontheme().copyWith(color: screenBackgroundColorGreen),
+    unselectedIconTheme: icontheme().copyWith(color: Colors.white),
     selectedItemColor: screenBackgroundColorGreen,
     unselectedItemColor: Colors.white,
     unselectedLabelStyle: labelStyle(),
@@ -58,16 +58,8 @@ BottomNavigationBar bottomBar(
     },
     items: [
       BottomNavigationBarItem(
-          label: AppLocalizations.of(context)!.bottomBarHome,
-          icon: Icon(Icons.home),
-          backgroundColor: screenBackgroundColorIndigo),
-      BottomNavigationBarItem(
           label: AppLocalizations.of(context)!.bottomBarDiagnose,
           icon: Icon(Icons.image_search_sharp),
-          backgroundColor: screenBackgroundColorIndigo),
-      BottomNavigationBarItem(
-          label: AppLocalizations.of(context)!.bottomBarSHop,
-          icon: Icon(Icons.shopify_sharp),
           backgroundColor: screenBackgroundColorIndigo),
       BottomNavigationBarItem(
           label: AppLocalizations.of(context)!.bottomBarHistory,

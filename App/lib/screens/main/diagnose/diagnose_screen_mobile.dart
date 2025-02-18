@@ -23,35 +23,39 @@ class DiagnoseScreenMobile extends StatelessWidget {
               height: 2.63 * SizeConfig.heightMultiplier,
             ),
             //*widget for uploading crop and get response
-            Obx(() => controller.diagnoseShow == true
-                ? TweenAnimationBuilder(
-                    tween: Tween<Offset>(
-                      begin: Offset(0, 1), // Start from the bottom
-                      end: Offset(0, 0), // End at the current position
-                    ),
-                    duration: Duration(milliseconds: 1000),
-                    curve: Curves.easeInOut,
-                    builder: (context, Offset offset, child) {
-                      return Transform.translate(
-                        offset:
-                            offset * SizeConfig.height, // Move based on height
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 2.10 * SizeConfig.heightMultiplier,
-                              horizontal: 2.83 * SizeConfig.widthMultiplier),
-                          height: 44.24 * SizeConfig.heightMultiplier,
-                          width: 93.75 * SizeConfig.widthMultiplier,
-                          decoration: BoxDecoration(
-                            color: fieldColor,
-                            borderRadius: BorderRadius.circular(
-                                1.05 * SizeConfig.heightMultiplier),
-                          ),
-                          child: getResponseWidget(context, controller),
+            Obx(() {
+              return TweenAnimationBuilder(
+                tween: Tween<Offset>(
+                  begin: controller.diagnoseShow.value
+                      ? Offset(0, 1)
+                      : Offset(0,
+                          0), //* Start from the bottom if true, else start from current position
+                  end: controller.diagnoseShow.value
+                      ? Offset(0, 0)
+                      : Offset(0,
+                          1), //* End at current position if true, else end at the bottom
+                ),
+                duration: Duration(milliseconds: 1000),
+                curve: Curves.easeInOut,
+                builder: (context, Offset offset, child) {
+                  return Transform.translate(
+                    offset: offset * SizeConfig.height,
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1 * SizeConfig.heightMultiplier,
+                            horizontal: 2.5 * SizeConfig.widthMultiplier),
+                        height: 44 * SizeConfig.heightMultiplier,
+                        width: 93.75 * SizeConfig.widthMultiplier,
+                        decoration: BoxDecoration(
+                          color: fieldColor,
+                          borderRadius: BorderRadius.circular(
+                              1.05 * SizeConfig.heightMultiplier),
                         ),
-                      );
-                    },
-                  )
-                : SizedBox())
+                        child: getResponseWidget(context, controller)),
+                  );
+                },
+              );
+            })
           ],
         ),
       ),

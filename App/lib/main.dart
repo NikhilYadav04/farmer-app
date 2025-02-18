@@ -4,8 +4,6 @@ import 'package:ai_plant_detecion/responsive/responseiveLayout.dart';
 import 'package:ai_plant_detecion/screens/onboard/onboard_screen_1_mobile.dart';
 import 'package:ai_plant_detecion/screens/onboard/onboard_screen_1_tablet.dart';
 import 'package:ai_plant_detecion/styling/sizeConfig.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +12,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
     WidgetsFlutterBinding.ensureInitialized();
-  runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
-  //runApp(MyApp());
+ // runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -39,6 +37,10 @@ class MyApp extends StatelessWidget {
             ],
             debugShowCheckedModeBanner: false,
             title: "AI Plant detecion",
+            theme: ThemeData(
+              splashColor: Colors.transparent,
+              splashFactory: NoSplash.splashFactory
+            ),
             home: //OnboardScreen1Mobile());
              Responseivelayout(
                 mobileBody: OnboardScreen1Mobile(),

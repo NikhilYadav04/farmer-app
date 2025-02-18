@@ -7,23 +7,24 @@ import 'package:get/get.dart';
 
 class AppbarScreenMobile extends StatelessWidget {
   final appBarController controller = Get.put(appBarController());
+  
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: screenBackgroundColorIndigo,
-        //* AppBar
-        appBar: appBar(() {}, controller, context),
-        body: Obx(() => pages[controller.currentPage.value]),
-        //* bottom navigation bar
-        bottomNavigationBar: Obx(() => Theme(
-              data: ThemeData(splashFactory: NoSplash.splashFactory),
-              child:
-                  bottomBar(controller.currentPage.value, controller, context),
-            )),
-      ),
+          resizeToAvoidBottomInset: true,
+          backgroundColor: screenBackgroundColorIndigo,
+          //* AppBar
+          appBar: appBar(() {}, controller, context),
+          body: Obx(() => pages[controller.currentPage.value]),
+          //* bottom navigation bar
+          bottomNavigationBar: Obx(() => Theme(
+                data: ThemeData(splashFactory: NoSplash.splashFactory,bottomAppBarTheme: BottomAppBarTheme(elevation: 0)),
+                child: bottomBar(
+                    controller.currentPage.value, controller, context),
+              )),
+        ),
     );
   }
 }

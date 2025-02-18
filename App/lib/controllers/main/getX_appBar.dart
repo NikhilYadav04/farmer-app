@@ -15,14 +15,8 @@ class appBarController extends GetxController {
   //*appBar text acc to currentPage
   String appBarText(BuildContext context) {
     return currentPage == 0
-        ? AppLocalizations.of(context)!.bottomBarHome
-        : currentPage == 1
-            ? AppLocalizations.of(context)!.bottomBarDiagnose
-            : currentPage == 2
-                ? AppLocalizations.of(context)!.bottomBarSHop
-                : currentPage == 3
-                    ? AppLocalizations.of(context)!.bottomBarHistory
-                    : "";
+        ? AppLocalizations.of(context)!.bottomBarDiagnose
+        : AppLocalizations.of(context)!.bottomBarHistory;
   }
 
   void onClose() {

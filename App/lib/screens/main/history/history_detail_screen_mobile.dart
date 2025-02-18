@@ -23,7 +23,7 @@ class HistoryDetailScreenMobile extends StatelessWidget {
                 IconButton(
                   onPressed: () => Get.back(),
                   icon: Icon(
-                    Icons.arrow_back,
+                    Icons.arrow_back_ios,
                     color: Colors.white,
                     size: 4.21 * SizeConfig.heightMultiplier,
                   ),
@@ -59,7 +59,7 @@ class HistoryDetailScreenMobile extends StatelessWidget {
                 SizedBox(
                   height: 1.58 * SizeConfig.heightMultiplier,
                 ),
-                //*remedies text
+                //*medicinal uses
                 Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: 1.11 * SizeConfig.widthMultiplier),

@@ -131,7 +131,7 @@ class OnboardScreen1Mobile extends StatelessWidget {
             FractionallySizedBox(
               heightFactor: 0.130,
               alignment: Alignment.bottomCenter,
-              child:  bottomButtons(() {
+              child:  bottomButtons(context,() {
                 Get.off(() => SignupScreenMobile(),
                     transition: Transition.downToUp);
               }, () {

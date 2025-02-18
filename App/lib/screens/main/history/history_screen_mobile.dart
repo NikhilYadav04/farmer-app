@@ -16,6 +16,7 @@ class HistoryScreenMobile extends StatelessWidget {
         SizedBox(
           height: 0.52 * SizeConfig.heightMultiplier,
         ),
+
         //*search field
         Container(
           padding: EdgeInsets.symmetric(
