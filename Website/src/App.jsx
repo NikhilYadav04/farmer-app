@@ -1,17 +1,18 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-} from "react-router-dom";
-import Uploader from "./components/Uploader";
-import Register from "./components/Register";
-import Home from "./components/Home";
-import AboutUs from "./components/AboutUs";
-import Signin from "./components/Signin";
-import FAQs from "./components/FAQs";
-import ChatApp from "./components/ChatApp";
-import History from "./components/History";
-import AppLayout from "./ui/AppLayout";
+} from 'react-router-dom';
+import Uploader from './components/Uploader';
+import Register from './components/Register';
+import Home from './components/Home';
+import AboutUs from './components/AboutUs';
+import Signin from './components/Signin';
+import FAQs from './components/FAQs';
+import ChatApp from './components/ChatApp';
+import History from './components/History';
+import AppLayout from './ui/AppLayout';
 
 const router = createBrowserRouter([
   {
@@ -22,35 +23,35 @@ const router = createBrowserRouter([
         element: <Navigate replace to="home" />,
       },
       {
-        path: "home",
+        path: 'home',
         element: <Home />,
       },
       {
-        path: "about",
+        path: 'about',
         element: <AboutUs />,
       },
       {
-        path: "upload",
+        path: 'upload',
         element: <Uploader />,
       },
       {
-        path: "FAQ",
+        path: 'FAQ',
         element: <FAQs />,
       },
       {
-        path: "register",
+        path: 'register',
         element: <Register />,
       },
       {
-        path: "signin",
+        path: 'signin',
         element: <Signin />,
       },
       {
-        path: "chatbot",
+        path: 'chatbot',
         element: <ChatApp />,
       },
       {
-        path: "history",
+        path: 'history',
         element: <History />,
       },
     ],
@@ -58,5 +59,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
